@@ -1,0 +1,20 @@
+#layoutSidenav_nav
+    nav.sb-sidenav.accordion.sb-sidenav-dark
+      .sb-sidenav-menu
+        .nav
+          .sb-sidenav-menu-heading Core
+          a.nav-link(href='#')
+            .sb-nav-link-icon
+              i.fas.fa-tachometer-alt
+            |                 Dashboard
+          a.nav-link.collapsed(href='/admin/animals')
+            .sb-nav-link-icon
+              i.fas.fa-dog
+            |                 Animals
+          a.nav-link.collapsed(href='/admin/users')
+            .sb-nav-link-icon
+              i.fas.fa-book-open
+            |                 Users
+      .sb-sidenav-footer
+        .small
+        a.logout(href="/admin/logout", style="color:white") Log Out

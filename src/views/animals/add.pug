@@ -1,0 +1,35 @@
+extends ./../layouts/main
+
+block layout-content
+  
+  .container-fluid.px-4
+    h1.mt-4 Add New animal
+    ol.breadcrumb.mb-4
+      li.breadcrumb-item.active animal
+    .card.mb-4.w-50.m-auto.rounded-4.shadow
+      .card-body.p-4.pt-5
+        div.add-animal-form
+          h4.card-title.text-start.fw-bold Animal Information 
+          p.card-subtitle.text-start.mb-4.text-muted Form subtitle
+          form(action="create", method="post")
+            .form-floating.mb-3
+              input#Name.form-control(type="text", name="name" placeholder="Enter your first name")
+              label(for="Name")  Name
+            .form-floating.mb-3
+              input#Color.form-control(type="text", name="color" placeholder="Enter your last name")
+              label(for="Color") Color
+            .form-floating.mb-3
+              input#Age.form-control(type="number", name="age" placeholder="Enter your email")
+              label(for="Age") Age
+            .form-floating.mb-3
+              select#BreedId.form-select(name="breed_id" aria-label="Select animal breed type")
+                each breed in breeds
+                  option(value=breed.id)= breed.name
+              label(for="BreedId") Breed Type
+            .form-floating.mb-3
+              textarea#floatingInputDescription.form-control(name="description" placeholder="Enter your description" style="height: 100px")
+              label(for="floatingInputDescription") Description
+            .form-floating.mb-3
+              textarea#floatingInputShortDescription.form-control(name="short_description" placeholder="Enter yuor short description" style="height: 100px")
+              label(for="floatingInputShortDescription") Short Description
+            button.w-100.btn.btn-primary.btn-lg.fs-3.fw-semibold.rounded-pill.mt-4(type="submit") Submit

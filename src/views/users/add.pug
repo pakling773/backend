@@ -1,0 +1,36 @@
+extends ./../layouts/main
+
+block layout-content
+  
+  .container-fluid.px-4
+    h1.mt-4 Add New User
+    ol.breadcrumb.mb-4
+      li.breadcrumb-item.active user
+    .card.mb-4.w-50.m-auto.rounded-4.shadow
+      .card-body.p-4.pt-5
+        div.add-user-form
+          h4.card-title.text-start.fw-bold User Information 
+          p.card-subtitle.text-start.mb-4.text-muted Form subtitle
+          form(action="process_user", method="post")
+            .form-floating.mb-3
+              input#floatingInputFirstName.form-control(type="text", name="firstname" placeholder="Enter your first name")
+              label(for="floatingInput") First Name
+            .form-floating.mb-3
+              input#floatingPasswordLastName.form-control(type="text", name="lastname" placeholder="Enter your last name")
+              label(for="floatingPassword") Last Name
+            .form-floating.mb-3
+              input#floatingInputEmail.form-control(type="email", name="email" placeholder="Enter your email")
+              label(for="floatingInput") Email
+            //- Replace input field for user type with select dropdown
+            .form-floating.mb-3
+              select#userTypeUserType.form-select(name="user_type" aria-label="Select User Type")
+                option(value="0") User
+                option(value="1") Manager
+              label(for="userType") User Type
+            .form-floating.mb-3
+              input#floatingInputPassword.form-control(type="password", name="password" placeholder="Enter your password")
+              label(for="floatingInput") Password
+            .form-floating.mb-3
+              input#floatingInputConfirmPassword.form-control(type="password", name="confirm_password" placeholder="Confirm your password")
+              label(for="floatingPassword") Confirm Password
+            button.w-100.btn.btn-primary.btn-lg.fs-3.fw-semibold.rounded-pill.mt-4(type="submit") Submit

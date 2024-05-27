@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 import "dotenv/config";
 
 function verifyToken(req, res, next) {
-  next();
+  // next();
   const token = req.header("Authorization");
   if (!token) return res.status(401).json({ error: "Access denied..." });
   try {

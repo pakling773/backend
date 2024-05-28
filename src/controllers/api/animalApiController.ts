@@ -28,13 +28,15 @@ class AnimalApiController {
 
   getAnimalsWithDetail = async (req, res) => {
     try {
-      const data = await mySqlPool.query(
-        "select a.id, a.name , a.color, a.price , a.age, a.description  , b.name as breed_name , (select image from images where animal_id = a.id limit 1) as image from animals a left join breed b on a.breed_id = b.id  "
+      const qry =  "select a.id, a.name , a.color, a.price , a.age, a.description  , b.name as breed_name , (select image from images where animal_id = a.id limit 1) as image from animals a left join breed b on a.breed_id = b.id  ";
+      const data = await mySqlPool.query(qry
+       
       );
       if (!data) {
         res.status(404).send({ success: false, message: "Record not found" });
       }
       res.status(200).json({
+        query:qry,
         success: true,
         message: "all animal records",
         data: data[0],

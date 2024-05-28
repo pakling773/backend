@@ -269,11 +269,11 @@ class AnimalApiController {
       }
 
       if (keyword && breeds.length) {
-        query = `select * from animals where name like '%${keyword}%' and breed_id in (${breeds})`;
+        query = `select a.* , b.name as breed from animals a   join breed  b on (a.breed_id = b.id) where a.name like '%${keyword}%' and breed_id in (${breeds})`;
       }
 
       if (!keyword && breeds.length) {
-        query = `select * from animals where breed_id in (${breeds})`;
+        query = `select a.*, b.name as breed from animals a join breed b on (a.breed_id = b.id) where breed_id in (${breeds}) `;
       }
       console.log(query);
       const data: any = await mySqlPool.query(query);
@@ -291,6 +291,7 @@ class AnimalApiController {
       }
 
       res.status(200).send({
+        query:query,
         success: true,
         message: "search result",
         animals: data[0],

@@ -28,7 +28,7 @@ class AnimalApiController {
 
   getAnimalsWithDetail = async (req, res) => {
     try {
-      const qry =  "select a.id, a.name , a.color, a.price , a.age, a.description  , b.name as breed_name , (select image from images where animal_id = a.id limit 1) as image from animals a left join breed b on a.breed_id = b.id  ";
+      const qry =  "select a.id, a.gender, a.name , a.color, a.price , a.age, a.description  , b.name as breed_name , (select image from images where animal_id = a.id limit 1) as image from animals a left join breed b on a.breed_id = b.id  ";
       const data = await mySqlPool.query(qry
        
       );

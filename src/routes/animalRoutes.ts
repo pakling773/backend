@@ -71,4 +71,6 @@ router.post(
 router.get("/request", AnimalApiController.getAnimalRequest);
 router.get("/resolve/:request_id", AnimalApiController.resolve);
 
+
+
 module.exports = router;

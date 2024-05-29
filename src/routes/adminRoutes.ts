@@ -72,4 +72,8 @@ router.post(
   animalController.updateAnimal
 );
 
+
+router.get("/animals/facebook/:animal_id", animalController.postToFB);
+
+
 module.exports = router;

@@ -4,6 +4,8 @@ import { Response, Request } from "express";
 import { validationResult } from "express-validator";
 
 import AnimalApiController from "../api/animalApiController";
+import facebookService from "../../services/facebookService";
+
 
 class AnimalController {
   // Method to get animal list
@@ -199,6 +201,15 @@ class AnimalController {
       [photo_id]
     );
     res.redirect("/admin/animals/photos/" + req.params.animal_id);
+  }
+
+
+  async postToFB(req, res) {
+      
+    try {
+      await facebookService.postToFB(req, res);
+    } catch (error) {}
+    res.redirect("/admin/animals");
   }
 }
 

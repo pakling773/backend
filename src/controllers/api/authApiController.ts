@@ -151,6 +151,10 @@ class AuthApiController {
   };
 
   googleLogin = async(req, res) =>{
+
+
+    try {
+      
     const {given_name, family_name, email}  = req.body;
     const user_row: any = await mySqlPool.query(
       "select * from users where email = ?",
@@ -194,6 +198,14 @@ class AuthApiController {
       message: "Login successfull.",
       accessToken: token,
     });
+    } 
+      catch (error) {
+        console.log(error);
+        res
+        .status(500)
+        .send({ success: false, message: "something went wrong", error });
+      
+    }
     
   }
 }

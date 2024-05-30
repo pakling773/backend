@@ -25,6 +25,7 @@ block layout-content
             th(scope="col") Last Name
             th(scope="col") Email
             th(scope="col") User Type
+            th(scope="col") Login Type
             th(scope="col") Created
             th(scope="col") Action
         
@@ -39,7 +40,12 @@ block layout-content
                td Manager  
             else 
               td User 
-            td= moment(row.created).format('YY/MM/DD HH:mm:ss')
+            if (row.social === 1)
+               td Google   
+            else 
+               td Manual 
+               
+            td= moment(row.created).format('YY/MM/DD HH:mm:ss') 
             td  
               .d-flex.align-items-center.gap-3
                 a.delete.btn.btn-danger(href=`/admin/users/delete/${row.id}`, onclick="return confirm('Are you sure you want to delete this user?');")

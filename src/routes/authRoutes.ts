@@ -8,6 +8,12 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.post("/login", authApiController.login);
 router.post("/register", authApiController.register);
+
+
+
+router.post("/google-login", authApiController.googleLogin);
+
+
 router.get("/admin/login", loginController.loginForm);
 router.post(
   "/admin/process_login",

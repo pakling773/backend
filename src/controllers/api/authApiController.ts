@@ -3,6 +3,26 @@ import mySqlPool from "../../config/mysql";
 import * as jwt from "jsonwebtoken";
 import { validationResult } from "express-validator";
 
+
+export interface ItokenResponse {
+  access_token?: string;
+  token_type?: string;
+  expires_in?: number;
+  scope?: string;
+  authuser?: string;
+  prompt?: string;
+}
+export interface IUserInfo {
+  sub?: string;
+  name?: string;
+  given_name?: string;
+  family_name?: string;
+  picture?: string;
+  email?: string;
+  email_verified?: boolean;
+  locale?: string;
+}
+
 class AuthApiController {
   login = async (req, res) => {
     const { email, password } = req.body;
@@ -129,6 +149,53 @@ class AuthApiController {
         .send({ success: false, message: "unable to create user", error });
     }
   };
+
+  googleLogin = async(req, res) =>{
+    const {given_name, family_name, email}  = req.body;
+    const user_row: any = await mySqlPool.query(
+      "select * from users where email = ?",
+      [email]
+    );
+    // res.send(user_row[0]);
+    var user_id;
+    if(user_row[0].length){
+ 
+      user_id = user_row[0][0].id;
+      
+    }else{
+
+      const data: any = await mySqlPool.query(
+        "insert into users (firstname,lastname,email,social) values (?,?,?,?)",
+        [given_name, family_name, email , 1]
+      );
+      const insert_id = data[0].insertId;
+      // res.send('new user' + insert_id);
+      user_id = insert_id;
+    }
+     var token = await jwt.sign(
+      {
+        id: user_id,
+      },
+      process.env.API_SECRET,
+      {
+        expiresIn: "12 days",
+      }
+    );
+
+    res.status(200).send({
+      user: {
+        id: user_id,
+        email: email,
+        firstname: given_name,
+        lastname: family_name,
+        user_type:0,
+        
+      },
+      message: "Login successfull.",
+      accessToken: token,
+    });
+    
+  }
 }
 
 export default new AuthApiController();

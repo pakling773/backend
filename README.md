@@ -18,7 +18,6 @@ http://localhost:4000
 ### `Control Panel`
 
 Open Control Panel URL [http://localhost:4000/auth/admin/login](http://localhost:4000/auth/admin/login) to view it in the browser.
-http://localhost:4000/auth/admin/login
 
 User: admin@gmail.com\
 Password: test

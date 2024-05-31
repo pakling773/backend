@@ -28,7 +28,7 @@ Password: test
 
 ### `API Documents`
 
-See the [API Swggerhub Documentation ](https://app.swaggerhub.com/apis/PAKLING773_1/dogapi/1.0.0) for more information.\
+See the [API Swggerhub Documentation ](https://app.swaggerhub.com/apis/PAKLING773_1/dogapi/1.0.0) for more information.
 
 
 

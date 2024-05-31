@@ -60,6 +60,8 @@ router.post("/search", AnimalApiController.search);
 
 router.get("/similar/:breed_id", AnimalApiController.similarByBreed);
 
+router.get("/facebook-post/:animal_id", AnimalApiController.postFacebook);
+
 router.post(
   "/request",
   body("user_id", "UserID is required").exists(),

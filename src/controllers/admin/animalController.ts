@@ -11,7 +11,7 @@ class AnimalController {
   // Method to get animal list
   getAnimalList = async (req: Request, res: Response) => {
     try {
-      const result = await mySqlPool.query("select * from animals");
+      const result = await mySqlPool.query("select * from animals order by id desc");
       if (!result) {
         res.status(404).send({ success: false, message: "Record not found" });
       }

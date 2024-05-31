@@ -160,11 +160,12 @@ class AuthApiController {
       "select * from users where email = ?",
       [email]
     );
+    var user_type = 0;
     // res.send(user_row[0]);
     var user_id;
     if(user_row[0].length){
- 
-      user_id = user_row[0][0].id;
+       user_id = user_row[0][0].id;
+      user_type = user_row[0][0].user_type;
       
     }else{
 
@@ -192,7 +193,7 @@ class AuthApiController {
         email: email,
         firstname: given_name,
         lastname: family_name,
-        user_type:0,
+        user_type:user_type,
         
       },
       message: "Login successfull.",

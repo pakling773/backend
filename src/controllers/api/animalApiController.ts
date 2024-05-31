@@ -4,6 +4,8 @@ import { Request, Response } from "express";
 import { isUndefined } from "lodash";
 import * as fs from "fs";
 import * as path from "path";
+import { FacebookHelper } from "../../helpers/facebookHelper";
+import facebookService from "../../services/facebookService";
 
 class AnimalApiController {
   getAnimals = async (req: Request, res: Response) => {
@@ -88,16 +90,20 @@ class AnimalApiController {
         description,
         short_description,
         breed_id,
+        gender
       } = req.body;
 
       const data: any = await mySqlPool.query(
-        "insert into animals (name,age,price,color,description, short_description,breed_id) values (?,? , ?,?,?,?,?)",
-        [name, age, price, color, description, short_description, breed_id]
+        "insert into animals (name,age,price,color,description, short_description,breed_id, gender) values (?,? , ?,?,?,?,?,?)",
+        [name, age, price, color, description, short_description, breed_id, gender]
       );
       if (!data) {
         res.status(404).send({ success: false, message: "error on query" });
       }
+  
+
       const insert_id = data[0].insertId;
+      
       res.status(200).send({
         success: true,
         message: "New animal created",
@@ -126,17 +132,19 @@ class AnimalApiController {
         description,
         short_description,
         breed_id,
+        gender
       } = req.body;
       const id = req.params.id;
 
       const data = await mySqlPool.query(
-        "update animals set name =? , age= ? , color = ?  , price =? , description = ? , short_description = ? , breed_id = ? where id =?",
-        [name, age, color, price, description, short_description, breed_id, id]
+        "update animals set name =? , age= ? , color = ?  , price =? , description = ? , short_description = ? , breed_id = ? , gender = ? where id =?",
+        [name, age, color, price, description, short_description, breed_id, gender, id]
       );
       if (!data) {
         res.status(404).send({ success: false, message: "error on query" });
       }
       res.status(200).send({
+        id:id,
         success: true,
         message: "Animal updated successfully",
       });
@@ -389,6 +397,17 @@ class AnimalApiController {
       res
         .status(500)
         .send({ success: false, message: "something went wrong", error });
+    }
+  }
+
+  postFacebook(req,res){
+  
+    try {
+      facebookService.postToFBAnimalId(req.params.animal_id);
+      res.send('ok');
+      
+    } catch (error) {
+      res.status(500).send('error facebook post')
     }
   }
 }
